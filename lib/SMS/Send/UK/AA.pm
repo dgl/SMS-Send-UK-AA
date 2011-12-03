@@ -20,9 +20,9 @@ sub new {
   my($class, %args) = @_;
 
   my $self = bless {
-    _endpoint   => delete $args{_endpoint} || DEFAULT_ENDPOINT,
-    _username   => delete $args{_login},
-    _password   => delete $args{_password},
+    _endpoint => delete $args{_endpoint} || DEFAULT_ENDPOINT,
+    _username => delete $args{_login},
+    _password => delete $args{_password},
   }, $class;
 
   my $ssl_verify = exists $args{_ssl_verify} ? delete $args{_ssl_verify} : 1;
@@ -67,8 +67,8 @@ sub _create_ua {
     require CACertOrg::CA;
 
     $ua->ssl_opts(
-      verify_hostnames => 1,
-      SSL_ca_file      => CACertOrg::CA::SSL_ca_file()
+      verify_hostname => 1,
+      SSL_ca_file     => CACertOrg::CA::SSL_ca_file()
     );
   }
 
@@ -93,8 +93,6 @@ sub _construct_request {
 }
 
 1;
-
-__END__
 
 =head1 SYNOPSIS
 
