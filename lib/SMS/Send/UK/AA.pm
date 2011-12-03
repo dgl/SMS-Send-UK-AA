@@ -139,11 +139,13 @@ full details if not explained here.
 
 =item * _login
 
-Must be provided, your A&A VoIP username.
+If using a VoIP line, must be provided, your A&A VoIP username (usually your
+phone number). Not required for direct to SIM delivery.
 
 =item * _password
 
-Must be provided, password associated with the above.
+Must be provided, either the password associated with the above, or the SMS
+password configured along with your SIM.
 
 =item * _endpoint
 
@@ -204,14 +206,18 @@ User data header, in hex.
 
 =item * _iccid
 
-Send to a specific SIM -- you'll also need to specify the C<to> field as this
-in order for L<SMS::Send> to be happy.
+Send to a specific SIM. You'll also need to specify the C<to> field as this to
+keep L<SMS::Send> happy. An originator must be specified if you provide this.
 
 =back
 
 =head1 SEE ALSO
 
 =over 4
+
+=item *
+
+An example of an email to SMS gateway is in F<eg/sms.pl> in the distribution.
 
 =item *
 
