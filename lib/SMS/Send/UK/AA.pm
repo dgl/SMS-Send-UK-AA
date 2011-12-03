@@ -6,7 +6,7 @@ use parent qw(SMS::Send::Driver);
 use Carp qw(croak);
 use LWP::UserAgent 6.00; # We need proper SSL support
 use HTTP::Request::Common;
-use URI;
+use URI 1.53; # ->secure
 
 use SMS::Send::UK::AA::Response;
 
