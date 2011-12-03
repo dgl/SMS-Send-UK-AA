@@ -117,6 +117,12 @@ This is a L<SMS::Send> compatible module that sends using the UK based provider
 L<Andrews and Arnold Ltd|http://aa.net.uk> (A&A). You will need a VoIP account
 with A&A in order to use this module.
 
+=method send_sms
+
+Sends an SMS. The return value will evaluate in boolean context to a false
+value, but will stringify to a useful message. It also has a C<status_line>
+method which will return a one line status.
+
 =head1 PARAMETERS
 
 Certain private parameters not part of L<SMS::Send>'s API are implemented by

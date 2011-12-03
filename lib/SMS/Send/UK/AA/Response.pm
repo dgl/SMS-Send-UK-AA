@@ -20,4 +20,14 @@ sub _message {
   return shift->[1];
 }
 
+sub status_line {
+  my $message = "$_[0]";
+
+  ($message =~ /^(?:OK|ERR):/m
+    # Looks like A&A
+    ? $message =~ /\n?(.*?)[\r\n]*$/
+    # LWP or something else, go for the first line
+    : $message =~ /^(.*?)[\r\n]*/)[0];
+}
+
 1;

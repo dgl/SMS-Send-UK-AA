@@ -25,6 +25,7 @@ my $test_sender = SMS::Send->new("UK::AA",
 
   ok !$response;
   ok $response =~ /ERR: Invalid/;
+  ok $response->status_line eq 'ERR: Invalid.';
 }
 
 {
@@ -44,6 +45,7 @@ my $test_sender = SMS::Send->new("UK::AA",
 
   ok $response;
   ok $response =~ /OK: Queued/;
+  ok $response->status_line eq 'OK: Queued';
 }
 
 {
