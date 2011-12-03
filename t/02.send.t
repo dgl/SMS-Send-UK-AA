@@ -59,7 +59,6 @@ my $test_sender = SMS::Send->new("UK::AA",
   is_deeply(query($request), {
       username => $params{_login},
       password => $params{_password},
-      destination => "66666666666666",
       message => "test",
       iccid   => "6666666666666666666",
   });

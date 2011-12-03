@@ -89,6 +89,10 @@ sub _construct_request {
     $data{substr $name, 1} = $params{$name};
   }
 
+  if(exists $data{iccid}) {
+    delete $data{destination};
+  }
+
   return POST $endpoint, \%data;
 }
 
