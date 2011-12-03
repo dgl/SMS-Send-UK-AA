@@ -20,6 +20,7 @@
 #      login = 0123456789x
 #      password = somethingratherlong
 #      # Change to true if A&A have allowed custom originators for you
+#      # (required for SIM).
 #      custom_originator = false
 #
 #    [user]
