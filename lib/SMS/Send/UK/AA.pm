@@ -121,7 +121,7 @@ with A&A in order to use this module.
 
 =head1 PARAMETERS
 
-Certain private parmaters not part of L<SMS::Send>'s API are implemented by
+Certain private parameters not part of L<SMS::Send>'s API are implemented by
 this module. They all begin with an underscore (C<_>). See the A&A docs for
 full details if not explained here.
 
