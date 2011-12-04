@@ -39,8 +39,8 @@
 
 use strict;
 use Config::GitLike;
-use Email::Simple;
 use Email::Address;
+use Mail::SpamAssassin::Message;
 use SMS::Send;
 
 # Will look at /etc/sms-mail-config, ~/.sms-mail-config, ./.sms-mail-config
@@ -50,7 +50,7 @@ my $sms = SMS::Send->new($c->get(key => "sms.driver") || "UK::AA",
   _login    => $c->get(key => "sms.login"),
   _password => $c->get(key => "sms.password"));
 
-my $email = Email::Simple->new(join '', <>);
+my $email = Mail::SpamAssassin::Message->new;
 
 my $from = (Email::Address->parse($email->header("From")))[0];
 if(defined $from && ref $from) {
@@ -60,8 +60,8 @@ if(defined $from && ref $from) {
 }
 
 my $subject = $email->header("Subject");
-# TODO: Use some MIME parser here, pull out first text part.
-my $body = substr $email->body, 0, 100;
+my $first_part = ($email->find_parts('text/plain', 1))[0];
+my $body = substr $first_part->decode, 0, 100;
 
 my $to = $c->get(key => "user.$ENV{LOCAL}") || $c->get(key => "user.default");
 
