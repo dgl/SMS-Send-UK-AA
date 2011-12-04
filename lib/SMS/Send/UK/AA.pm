@@ -62,13 +62,13 @@ sub _create_ua {
   my $ua = LWP::UserAgent->new;
   $ua->env_proxy;
 
-  if($ssl_verify && URI->new($self->{_endpoint})->secure) {
+  if(URI->new($self->{_endpoint})->secure) {
     require LWP::Protocol::https;
-    require CACertOrg::CA;
+    require CACertOrg::CA if $ssl_verify;
 
     $ua->ssl_opts(
-      verify_hostname => 1,
-      SSL_ca_file     => CACertOrg::CA::SSL_ca_file()
+      verify_hostname => $ssl_verify,
+      $ssl_verify ? (SSL_ca_file => CACertOrg::CA::SSL_ca_file()) : ()
     );
   }
 
