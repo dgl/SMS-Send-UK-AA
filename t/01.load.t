@@ -9,6 +9,7 @@ new_ok "SMS::Send", ["UK::AA", %params];
 
 eval {
   SMS::Send->new("UK::AA", _meh => 2);
-} || like $@, qr/Unknown arguments: _meh/;
+};
+like $@, qr/Unknown arguments: _meh/;
 
 done_testing;
