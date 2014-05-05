@@ -65,11 +65,11 @@ sub _create_ua {
 
   if(URI->new($self->{_endpoint})->secure) {
     require LWP::Protocol::https;
-    require CACertOrg::CA if $ssl_verify;
+    require Mozilla::CA if $ssl_verify;
 
     $ua->ssl_opts(
       verify_hostname => $ssl_verify,
-      $ssl_verify ? (SSL_ca_file => CACertOrg::CA::SSL_ca_file()) : ()
+      $ssl_verify ? (SSL_ca_file => Mozilla::CA::SSL_ca_file()) : ()
     );
   }
 
