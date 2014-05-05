@@ -4,7 +4,6 @@ use strict;
 use parent qw(SMS::Send::Driver);
 
 use Carp qw(croak);
-use Encode;
 use LWP::UserAgent 6.00; # We need proper SSL support
 use HTTP::Request::Common;
 use URI 1.53; # ->secure
@@ -82,7 +81,7 @@ sub _construct_request {
   my $endpoint = delete $params{_endpoint};
 
   my %data;
-  $data{ud} = encode_utf8(delete $params{text});
+  $data{ud} = delete $params{text};
   $data{da} = delete $params{to};
 
   for my $name(keys %params) {
