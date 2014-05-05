@@ -69,10 +69,7 @@ my $sent = $sms->send_sms(
   to => $to,
   text => "$subject\n$body",
   ($c->get(key => "sms.custom_originator", as => "bool")
-    ? (_originator => $from) : ()),
-  # Assume 19 digit numbers are ICCID
-  (length $to == 19 ? (_iccid => $to) : ())
-);
+    ? (_oa => $from) : ()));
 
 print ref $sent ? $sent->status_line : $sent, "\n";
 # Fail so the MDA will queue it if it didn't get forwarded on

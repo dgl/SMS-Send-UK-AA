@@ -1,4 +1,5 @@
 use strict;
+use Encode;
 use Test::More 0.87; # done_testing
 use Test::LWP::MockSocket::http;
 use HTTP::Body;
@@ -19,8 +20,8 @@ my $test_sender = SMS::Send->new("UK::AA",
   is_deeply(query($request), {
       username => $params{_login},
       password => $params{_password},
-      destination => "+1234567",
-      message => "test message"
+      da => "+1234567",
+      ud => "test message"
   });
 
   ok !$response;
@@ -39,8 +40,8 @@ my $test_sender = SMS::Send->new("UK::AA",
   is_deeply(query($request), {
       username => $params{_login},
       password => $params{_password},
-      destination => "+1234567",
-      message => "test"
+      da => "+1234567",
+      ud => "test"
   });
 
   ok $response;
@@ -49,21 +50,22 @@ my $test_sender = SMS::Send->new("UK::AA",
 }
 
 {
-  $LWP_Response = resp("OK: Sent.", my $request);
+  $LWP_Response = resp("SMS message to 1234\nOK: Queued\r\n", my $request);
 
   my $response = $test_sender->send_sms(
-    to => "66666666666666",
-    text => "test",
-    _iccid => "6666666666666666666");
+    to => "+1234567",
+    text => "Here is some unicode: \x{1f30c}");
 
   is_deeply(query($request), {
       username => $params{_login},
       password => $params{_password},
-      message => "test",
-      iccid   => "6666666666666666666",
+      da => "+1234567",
+      ud => encode_utf8("Here is some unicode: \x{1f30c}"),
   });
+
   ok $response;
-  ok $response =~ /OK: Sent\./;
+  ok $response =~ /OK: Queued/;
+  ok $response->status_line eq 'OK: Queued';
 }
 
 done_testing;
